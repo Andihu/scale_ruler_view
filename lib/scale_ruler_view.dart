@@ -17,40 +17,43 @@ class ViewStyle {
   static ViewStyle valueUpScaleDownCloseStyle = ViewStyle(4);
 }
 
+typedef ScaleValueChangeCallback = void Function(int value);
+
 class RulerWidget extends StatefulWidget {
-  RulerWidget(
-      {Key? key,
-      required this.size,
-      required this.viewStyle,
-      required this.startValue,
-      required this.endValue,
-      required this.initValue,
-      required this.scaleValueSpace,
-      required this.lowScaleLineHigh,
-      required this.middleScaleLineHigh,
-      required this.highScaleLineHigh,
-      required this.space,
-      required this.textSize,
-      required this.textColor,
-      required this.zoomTextSize,
-      required this.lowScaleLineColor,
-      required this.middleScaleLineColor,
-      required this.highScaleLineColor,
-      required this.lowScaleLineStrokeWidth,
-      required this.middleScaleLineStrokeWidth,
-      required this.highScaleLineStrokeWidth,
-      required this.showLowScaleLine,
-      required this.showMiddleScaleLine,
-      required this.showHighScaleLine,
-      required this.showLowScaleNum,
-      required this.showMiddleScaleNum,
-      required this.showHighScaleNum,
-      required this.highSpaceValeSpace,
-      required this.middleSpaceValueSpace,
-      required this.lineColor,
-      required this.showLine,
-      required this.lineStrokeWidth
-      }) : super(key: key);
+  RulerWidget({
+    Key? key,
+    required this.size,
+    required this.viewStyle,
+    required this.startValue,
+    required this.endValue,
+    required this.initValue,
+    required this.scaleValueSpace,
+    required this.lowScaleLineHigh,
+    required this.middleScaleLineHigh,
+    required this.highScaleLineHigh,
+    required this.space,
+    required this.textSize,
+    required this.textColor,
+    required this.zoomTextSize,
+    required this.lowScaleLineColor,
+    required this.middleScaleLineColor,
+    required this.highScaleLineColor,
+    required this.lowScaleLineStrokeWidth,
+    required this.middleScaleLineStrokeWidth,
+    required this.highScaleLineStrokeWidth,
+    required this.showLowScaleLine,
+    required this.showMiddleScaleLine,
+    required this.showHighScaleLine,
+    required this.showLowScaleNum,
+    required this.showMiddleScaleNum,
+    required this.showHighScaleNum,
+    required this.highSpaceValeSpace,
+    required this.middleSpaceValueSpace,
+    required this.lineColor,
+    required this.showLine,
+    required this.lineStrokeWidth,
+    required this.callback,
+  }) : super(key: key);
   Size size;
   var startValue = 3;
   var endValue = 30;
@@ -81,6 +84,7 @@ class RulerWidget extends StatefulWidget {
   bool showLine;
   double lineStrokeWidth;
   Color lineColor;
+  ScaleValueChangeCallback callback;
 
   @override
   _RulerWidgetState createState() => _RulerWidgetState();
@@ -130,6 +134,7 @@ class _RulerWidgetState extends State<RulerWidget> with TickerProviderStateMixin
           highSpaceValeSpace: widget.highSpaceValeSpace,
           lineColor: widget.lineColor,
           lineStrokeWidth: widget.lineStrokeWidth,
+          callback: widget.callback,
           showLine: widget.showLine,
         ),
       ),
@@ -232,6 +237,7 @@ class RulerView extends CustomPainter {
   bool showLine;
   double lineStrokeWidth;
   Color lineColor;
+  ScaleValueChangeCallback callback;
 
   RulerView(
       {required this.offset,
@@ -263,6 +269,7 @@ class RulerView extends CustomPainter {
       required this.showHighScaleNum,
       required this.lineColor,
       required this.lineStrokeWidth,
+      required this.callback,
       required this.showLine}) {
     linePaint = Paint()
       ..style = PaintingStyle.fill
@@ -391,7 +398,15 @@ class RulerView extends CustomPainter {
     }
   }
 
+  int callbackCache = -1;
   void _drawTextPaintShowSize(Canvas canvas, num currentXAxisCoordinate, int currentValue, Size canvasSize) {
+    // if (currentXAxisCoordinate == 0 || currentXAxisCoordinate.abs() < space * 0.3) {
+    if (currentXAxisCoordinate == 0){
+    if (callback != null) {
+        callbackCache = currentValue;
+        callback.call(currentValue);
+      }
+    }
     double finalTextSize = textSize;
     if (currentXAxisCoordinate.abs() <= space) {
       if (currentXAxisCoordinate == 0) {

@@ -1,7 +1,7 @@
 name: scale_ruler_view
 description: 一款简单易好用的刻度尺控件，可以自定义开始值和结束值
 version: 0.0.1
-homepage:
+homepage: https://github.com/Andihu/scale_ruler_view
 
 environment:
   sdk: '>=2.18.5 <3.0.0'

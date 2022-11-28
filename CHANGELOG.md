@@ -1,3 +1,3 @@
 ## 0.0.1
 
-* TODO: Describe initial release.
+* 一款简单易好用的刻度尺控件，可以自定义开始值和结束值

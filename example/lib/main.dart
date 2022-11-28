@@ -41,7 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Center(
               child: Container(
                 color: Colors.black87,
-                child: RulerWidget(
+                child:
+                RulerWidget(
                   size: Size(size.width, size.height / 5),
                   viewStyle: ViewStyle.valueUpScaleDownCloseStyle,
                   showHighScaleLine: true,
@@ -72,6 +73,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   textColor: Colors.white,
                   middleSpaceValueSpace: 5,
                   highSpaceValeSpace: 10,
+                  callback:(int value){
+                    debugPrint("scaleValueChange  ${value}");
+                  },
                 ),
               )
           ),
