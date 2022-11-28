@@ -15,11 +15,11 @@ and the Flutter guide for
 
 一款简单易好用的刻度尺控件，自定义刻度显示，自定义样式
 
-![](\tutieshi_580x180_13s.gif)
+![](tutieshi_580x180_13s.gif)
 
-![](\tutieshi_580x188_8s.gif)
+![](tutieshi_580x188_8s.gif)
 
-![](\tutieshi_580x200_14s.gif)
+![](tutieshi_580x200_14s.gif)
 
 ## Getting started
 
